@@ -31,7 +31,7 @@ pipeline {
         stage('Integration Tests on Staging') {
             steps {
                 echo "Running integration tests on the staging environment."
-                sh 'waitForStaging.sh' // a script that waits for the environment to be ready
+                
             }
         }
 
