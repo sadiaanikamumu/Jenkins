@@ -21,10 +21,10 @@ pipeline {
                 echo "Check the quality of the code."
             }
             post{
-            always{
-            mail to: "sadiaanikamumugmail.com",
-            subject: "Build Status Email",
-            body: "Build log attached!"
+               always{
+                   mail to: "sadiaanikamumugmail.com",
+                   subject: "Build Status Email",
+                   body: "Build log attached!"
           }
         }
     }
