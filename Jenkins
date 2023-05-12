@@ -4,51 +4,52 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "Fetch the source code from the directory path specified by the environment variable."
-                echo "Compile the code and generate any necessary artifacts."
+                echo "Fetching the source code from the directory path specified by the environment variable."
+                echo "Compiling the code and generating any necessary artifacts."
             }
         }
 
         stage('Unit and Integration Tests') {
             steps {
-                echo "Run unit tests."
-                echo "Run integration tests."
+                echo "Running unit tests."
+                echo "Running integration tests."
             }
         }
 
         stage('Code Analysis') {
             steps {
-                echo "Check the quality of the code."
+                echo "Checking the quality of the code using a code analysis tool."
             }
-            post{
-               always{
-                   mail to: "sadiaanikamumu@gmail.com",
-                   subject: "Build Status Email",
-                   body: "Build log attached!"
-          }
         }
-    }
 
         stage('Security Scan') {
             steps {
-                echo "identify any vulnerabilities."
+                echo "Identifying vulnerabilities using a security scanning tool."
             }
         }
 
         stage('Integration Tests on Staging') {
             steps {
-                echo "run integration tests on the staging."
-                sleep time: 10, unit: 'SECONDS'
+                echo "Running integration tests on the staging environment."
+                sh 'waitForStaging.sh' // a script that waits for the environment to be ready
             }
         }
 
         stage('Deploy to Production') {
             when {
-                environment name: 'APPROVED', value: 'true'
+                expression { params.APPROVED == 'true' }
             }
             steps {
-                echo "Deploy the code to the production environment ${PRODUCTION_ENVIRONMENT}."
+                echo "Deploying the code to the production environment ${params.PRODUCTION_ENVIRONMENT}."
             }
+        }
+    }
+
+    post {
+        always {
+            mail to: "sadiaanikamumu@gmail.com",
+            subject: "Build Status Email",
+            body: "Build log attached!"
         }
     }
 }
