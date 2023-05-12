@@ -36,11 +36,9 @@ pipeline {
         }
 
         stage('Deploy to Production') {
-            when {
-                expression { params.APPROVED == 'true' }
-            }
+            
             steps {
-                echo "Deploying the code to the production environment ${params.PRODUCTION_ENVIRONMENT}."
+                echo "Deploying the code to the production environment."
             }
         }
     }
