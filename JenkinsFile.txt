@@ -1,12 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        DIRECTORY_PATH = "C:/Users/sadia/OneDrive/Desktop/SIT753"
-        TESTING_ENVIRONMENT = "test1"
-        PRODUCTION_ENVIRONMENT = "sadia"
-    }
-
     stages {
         stage('Build') {
             steps {
