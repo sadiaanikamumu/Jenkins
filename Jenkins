@@ -9,28 +9,35 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Unit and Integration Tests') {
             steps {
                 echo "Run unit tests."
                 echo "Run integration tests."
             }
         }
 
-        stage('Code Quality Check') {
+        stage('Code Analysis') {
             steps {
                 echo "Check the quality of the code."
             }
+            post{
+            always{
+            mail to: "sadiaanikamumugmail.com",
+            subject: "Build Status Email",
+            body: "Build log attached!"
+          }
         }
+    }
 
-        stage('Deploy') {
+        stage('Security Scan') {
             steps {
-                echo "Deploy the application to a testing environment specified by the environment variable."
+                echo "identify any vulnerabilities."
             }
         }
 
-        stage('Approval') {
+        stage('Integration Tests on Staging') {
             steps {
-                echo "Waiting for approval..."
+                echo "run integration tests on the staging."
                 sleep time: 10, unit: 'SECONDS'
             }
         }
